@@ -2,7 +2,7 @@
 
 namespace iutnc\PiloteAndCo\actions;
 
-abstract class Actions
+abstract class Action
 {
 
     protected ?string $http_method = null;
