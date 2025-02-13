@@ -171,22 +171,18 @@ class Dispatcher
             <body>
                 <header style="height: 120px;">
                     <div class="bg-canary text-white d-flex justify-content-between align-items-center" style="height: 100%; padding: 0 20px;">
-                        <!-- Logo à gauche -->
                         <div>
                             <a href="index.php">
-                                <i class="fa-solid fa-house fa-2xl mx-5" style="color: #dcdb76;"></i>
+                                <img src="./images/logo.png" alt="logo" class="img-fluid" style="width: 200px; height: auto;">
                             </a>
                         </div>
-                        <!-- Thèmes des produits au centre -->
                         <div class="d-flex justify-content-center flex-grow-1">
                             <a href="index.php?action=electromenager" class="navlink mx-4">Electroménager</a>
                             <a href="index.php?action=jardinage" class="navlink mx-4">Jardinage & bricolage</a>
                             <a href="index.php?action=literie" class="navlink mx-4">Literie</a>
                             <a href="index.php?action=mobilier" class="navlink mx-4">Mobilier</a>
                         </div>
-                        <!-- Connexion/inscription ou utilisateur connecté à droite -->
                         <div>                            
-                            <!-- Code actuel pour la connexion et l'inscription -->
                             {$connexionOuProfil}
                         </div>
                     </div>

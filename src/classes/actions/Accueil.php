@@ -21,25 +21,25 @@ class Accueil extends Action
             $produitNew .= $pr->render();
         }
 
-        $produits = Produit::get5Products(2);
+        $produits = Produit::get5Products(1);
         foreach ($produits as $produit) {
             $pr = new ProduitRenderer($produit);
             $produitElectro .= $pr->render();
         }
 
-        $produits = Produit::get5Products(3);
+        $produits = Produit::get5Products(2);
         foreach ($produits as $produit) {
             $pr = new ProduitRenderer($produit);
             $produitJardi .= $pr->render();
         }
 
-        $produits = Produit::get5Products(4);
+        $produits = Produit::get5Products(3);
         foreach ($produits as $produit) {
             $pr = new ProduitRenderer($produit);
             $produitLiterie .= $pr->render();
         }
 
-        $produits = Produit::get5Products(5);
+        $produits = Produit::get5Products(4);
         foreach ($produits as $produit) {
             $pr = new ProduitRenderer($produit);
             $produitMobi .= $pr->render();
