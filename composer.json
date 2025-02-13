@@ -1,0 +1,8 @@
+{
+  "autoload": {
+    "psr-4": {
+      "iutnc\\PiloteAndCo\\": "src/classes/",
+      "iutnc\\PiloteAndCo\\admin\\": "src/admin/classes/"
+    }
+  }
+}
