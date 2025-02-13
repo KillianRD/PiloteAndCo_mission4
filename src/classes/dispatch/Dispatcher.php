@@ -3,14 +3,18 @@
 namespace iutnc\PiloteAndCo\dispatch;
 
 use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\admin\AddProduit;
+use iutnc\PiloteAndCo\actions\admin\GestionCatalogue;
+use iutnc\PiloteAndCo\actions\AjouterPanier;
+use iutnc\PiloteAndCo\actions\Infos;
 use iutnc\PiloteAndCo\actions\LoginAction;
 use iutnc\PiloteAndCo\actions\Logout;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 use iutnc\PiloteAndCo\actions\ParcourirPanier;
 use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
-use iutnc\PiloteAndCo\actions\Infos;
-use iutnc\PiloteAndCo\actions\AjouterPanier;
+use iutnc\PiloteAndCo\actions\ValiderPanier;
+
 
 class Dispatcher
 {
@@ -24,7 +28,10 @@ class Dispatcher
     public function run(): void
     {
         $html = "";
-
+        $user = null;
+        if (isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+        }
         switch ($this->action) {
             case "electromenager":
                 $a = new ParcourirCategorie("electromenager");
@@ -45,10 +52,18 @@ class Dispatcher
                 $a = new RegisterAction();
                 break;
             case "logout" :
-                $a = new Logout();
+                if ($user) {
+                    $a = new Logout();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "ajouter_panier":
-                $a = new AjouterPanier();
+                if ($user) {
+                    $a = new AjouterPanier();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "produit" :
                 $produitId = $_GET['id'] ?? null;
@@ -59,10 +74,35 @@ class Dispatcher
                 }
                 break;
             case "panier":
-                $a = new ParcourirPanier();
+                if ($user) {
+                    $a = new ParcourirPanier();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
+            case "checkout":
+                $a = new ValiderPanier();
+                break;
+            case "admin-gestion":
+                if ($user != null && $user->isadmin) {
+                    $a = new GestionCatalogue();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
+            case "admin-add-article":
+                if ($user != null && $user->isadmin) {
+                    $a = new AddProduit();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "infos":
-                $a = new Infos();
+                if ($user) {
+                    $a = new Infos();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "home" :
             default :
@@ -76,6 +116,8 @@ class Dispatcher
     private function afficherLoginOrProfil(): string
     {
         if (isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=panier" class="navlink">
@@ -88,6 +130,7 @@ class Dispatcher
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="?action=infos">Mes informations</a></li>
+                                {$htmlAdmin}
                                 <li><a class="dropdown-item" href="?action=logout">Se déconnecter</a></li>
                             </ul>
                         </div>
