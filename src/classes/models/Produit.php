@@ -3,6 +3,7 @@
 namespace iutnc\PiloteAndCo\models;
 
 use iutnc\PiloteAndCo\db\ConnectionFactory;
+use PDO;
 
 class Produit
 {
@@ -41,7 +42,40 @@ class Produit
         if (property_exists($this, $at)) {
             $this->$at = $val;
         } else {
-            throw new InvalidPropertyNameException (get_called_class() . " attribut invalid" . $at);
+            throw new InvalidPropertyNameException(get_called_class() . " attribut invalid" . $at);
         }
+    }
+
+    public static function getProducts(): array
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("SELECT * FROM PRODUIT");
+        $requete->execute();
+
+        $produits = [];
+        foreach ($requete->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $produit = new Produit($row['id_produit'], $row['nom'], $row['qte_dispo'], $row['img'], $row['poids'],
+                $row['description'], $row['id_categorie'], $row['prix']);
+            array_push($produits, $produit);
+        }
+
+        return $produits;
+    }
+
+    public static function getProductsByCategory(int $id): array
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("SELECT * FROM PRODUIT WHERE id_categorie = ?");
+        $requete->bindParam(1, $id);
+        $requete->execute();
+
+        $produits = [];
+        foreach ($requete->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $produit = new Produit($row['id_produit'], $row['nom'], $row['qte_dispo'], $row['img'], $row['poids'],
+                $row['description'], $row['id_categorie'], $row['prix']);
+            array_push($produits, $produit);
+        }
+
+        return $produits;
     }
 }
