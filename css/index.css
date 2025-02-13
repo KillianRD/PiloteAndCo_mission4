@@ -1,0 +1,18 @@
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+a.navlink {
+    color: #DCDB76;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+a.navlink:hover {
+    color: #F07E2F ;
+}
+
+.bg-canary{
+    background-color: #2B666F;
+}
