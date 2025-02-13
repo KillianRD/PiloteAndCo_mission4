@@ -3,6 +3,7 @@
     namespace iutnc\PiloteAndCo\dispatch;
 
     use iutnc\PiloteAndCo\actions\Accueil;
+    use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 
 class Dispatcher
 {
@@ -17,6 +18,22 @@ class Dispatcher
         $html = "";
 
         switch ($this->action) {
+            case "electromenager":
+                $a = new ParcourirCategorie("electromenager");
+                $html .= $a->execute();
+                break;
+            case "jardinage":
+                $a = new ParcourirCategorie("jardinage");
+                $html .= $a->execute();
+                break;
+            case "literie":
+                $a = new ParcourirCategorie("literie");
+                $html .= $a->execute();
+                break;
+            case "mobilier":
+                $a = new ParcourirCategorie("mobilier");
+                $html .= $a->execute();
+                break;
             case "home" :
             default :
                 $a = new Accueil();
