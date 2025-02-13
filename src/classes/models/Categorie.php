@@ -7,16 +7,16 @@ use PDO;
 
 class Categorie
 {
-    private int $id_categorie;
+    private int $id;
     private string $nom;
 
     /**
      * @param int $id_categorie
      * @param string $nom
      */
-    public function __construct(int $id_categorie, string $nom)
+    public function __construct(int $id, string $nom)
     {
-        $this->id_categorie = $id_categorie;
+        $this->id = $id;
         $this->nom = $nom;
     }
 
@@ -29,7 +29,7 @@ class Categorie
         throw new InvalidPropertyNameException("$at: propriété inconnue");
     }
 
-    public static function getCategoryByName(string $name) : Categorie
+    public static function getCategoryByName(string $name): Categorie
     {
         $db = ConnectionFactory::makeConnection();
         $requete = $db->prepare("SELECT * FROM categorie WHERE nom = ?");
@@ -37,6 +37,6 @@ class Categorie
         $requete->execute();
 
         $row = $requete->fetch(PDO::FETCH_ASSOC);
-        return new Categorie($row['id'], $row['nom']);
+        return new Categorie($row['id_categorie'], $row['nom']);
     }
 }
