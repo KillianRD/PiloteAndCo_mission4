@@ -125,7 +125,7 @@ class Dispatcher
     {
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=panier" class="navlink">
