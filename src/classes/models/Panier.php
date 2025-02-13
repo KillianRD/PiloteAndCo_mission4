@@ -2,14 +2,16 @@
 
 namespace iutnc\PiloteAndCo\models;
 
-use iutnc\PiloteAndCo\exceptions\InvalidPropertyNameException;
+use iutnc\PiloteAndCo\db\ConnectionFactory;
 
-class Panier{
+class Panier
+{
     private int $id_utilisateur;
     private int $id_produit;
     private int $quantite;
 
-    public function __construct($id_u, $id_p, $q){
+    public function __construct($id_u, $id_p, $q)
+    {
         $this->id_utilisateur = $id_u;
         $this->id_produit = $id_p;
         $this->quantite = $q;
@@ -23,6 +25,7 @@ class Panier{
 
         throw new InvalidPropertyNameException("$at: propriété inconnue");
     }
+
     public function __set(string $at, mixed $val = null)
     {
         if (property_exists($this, $at)) {
@@ -30,5 +33,20 @@ class Panier{
         } else {
             throw new InvalidPropertyNameException(get_called_class() . " attribut invalid" . $at);
         }
+    }
+
+    public static function getProductsByIdUser(int $id_user): array
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("SELECT * FROM panier WHERE id_utilisateur = ?");
+        $requete->bindParam(1, $id_user);
+        $requete->execute();
+
+        $produits = [];
+        foreach ($requete->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            array_push($produits, $row["id_produit"]);
+        }
+
+        return $produits;
     }
 }

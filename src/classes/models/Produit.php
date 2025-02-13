@@ -46,10 +46,38 @@ class Produit
         }
     }
 
+    public static function getProductById(int $id)
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("SELECT * FROM produit WHERE id_produit = ?");
+        $requete->bindParam(1, $id);
+        $requete->execute();
+
+        $row = $requete->fetch(PDO::FETCH_ASSOC);
+        return new Produit($row['id_produit'], $row['nom'], $row['qte_dispo'], $row['img'], $row['poids'],
+            $row['description'], $row['id_categorie'], $row['prix']);
+    }
+
     public static function getProducts(): array
     {
         $db = ConnectionFactory::makeConnection();
         $requete = $db->prepare("SELECT * FROM produit");
+        $requete->execute();
+
+        $produits = [];
+        foreach ($requete->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $produit = new Produit($row['id_produit'], $row['nom'], $row['qte_dispo'], $row['img'], $row['poids'],
+                $row['description'], $row['id_categorie'], $row['prix']);
+            array_push($produits, $produit);
+        }
+
+        return $produits;
+    }
+
+    public static function get5Products(): array
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("SELECT * FROM produit LIMIT 5");
         $requete->execute();
 
         $produits = [];
