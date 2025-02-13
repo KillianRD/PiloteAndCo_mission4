@@ -16,7 +16,7 @@
         }
     public function run(): void
     {
-        $html = (new Accueil())->execute();
+        $html = "";
 
         switch ($this->action) {
             case "home" :
@@ -60,10 +60,10 @@
                         </div>
                         <!-- Thèmes des produits au centre -->
                         <div class="d-flex justify-content-center flex-grow-1">
-                            <a href="index.php?action=electromenager" class="navlink mx-5">Electroménager</a>
-                            <a href="index.php?action=jardinage" class="navlink mx-5">Jardinage & bricolage</a>
-                            <a href="index.php?action=literie" class="navlink mx-5">Literie</a>
-                            <a href="index.php?action=jsp" class="navlink mx-5">Mobilier</a>
+                            <a href="index.php?action=electromenager" class="navlink mx-4">Electroménager</a>
+                            <a href="index.php?action=jardinage" class="navlink mx-4">Jardinage & bricolage</a>
+                            <a href="index.php?action=literie" class="navlink mx-4">Literie</a>
+                            <a href="index.php?action=jsp" class="navlink mx-4">Mobilier</a>
                         </div>
                         <!-- Connexion/inscription ou utilisateur connecté à droite -->
                         <div>
@@ -83,12 +83,10 @@
                         </div>
                     </div>
                 </header>
-            END
-                . $html .
-                <<<END
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-gH0i7tq3bJwSD6GfXn985OJXmd0Y5I8au3/UoxZCGLFqGF4twkwRjSMP9QSDRNNx" crossorigin="anonymous"></script>
-                </body>
-            </html>
-            END;
-        }
+            $html
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-gH0i7tq3bJwSD6GfXn985OJXmd0Y5I8au3/UoxZCGLFqGF4twkwRjSMP9QSDRNNx" crossorigin="anonymous"></script>
+            </body>
+        </html>
+        END;
     }
+}
