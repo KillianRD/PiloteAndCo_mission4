@@ -159,6 +159,7 @@ class Dispatcher
                 <title>Réstore</title>
 
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <link rel='shortcut icon' href='./images/logo_mini.png' type='image/x-icon'>
                 <link href="./css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

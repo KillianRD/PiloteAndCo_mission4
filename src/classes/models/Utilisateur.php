@@ -3,6 +3,7 @@
 namespace iutnc\PiloteAndCo\models;
 
 use iutnc\PiloteAndCo\exceptions\InvalidPropertyNameException;
+use iutnc\PiloteAndCo\db\ConnectionFactory;
 
 class Utilisateur
 {
@@ -28,6 +29,17 @@ class Utilisateur
         $this->code_postal = $code_postal;
         $this->ville = $ville;
         $this->isadmin = $isadmin;
+    }
+
+    public function mettreAjour(string $nom, string $prenom, string $mail, string $adresse): void{
+        $db = ConnectionFactory::makeConnection();
+        $update = $db->prepare("UPDATE utilisateur SET nom = ?, prenom = ?, mail = ?, adresse = ? WHERE id_utilisateur = ?");
+        $update->bindParam(1, $nom);
+        $update->bindParam(2, $prenom);
+        $update->bindParam(3, $mail);
+        $update->bindParam(4, $adresse);
+        $update->bindParam(5, $this->id);
+        $update->execute();
     }
 
     public function __get(string $at): mixed
