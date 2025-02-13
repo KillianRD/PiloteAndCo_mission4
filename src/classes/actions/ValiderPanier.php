@@ -16,8 +16,7 @@ class ValiderPanier extends Action
             $total = Panier::validerPanier($u->id);
         }
 
-        $html .= "Vous avez validé votre panier !";
-        $html .= $total . "€";
+        $html .= "<h2 class='text-center mx-auto mt-5'>Vous avez validé votre panier : $total € </h2>";
 
         return $html;
     }

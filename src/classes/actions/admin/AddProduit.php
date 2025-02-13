@@ -94,16 +94,20 @@ END;
                         $insert->bindParam(7, $dest);
                         $insert->execute();
 
-                        $html = "<h1>L'article a été ajouté avec succès</h1>";
+                        header('Location: index.php?action=admin-gestion');
+                        exit();
 
                     } else {
-                        $html = "Téléchargement non valide<br>";
+                        header('Location: index.php?action=admin-gestion');
+                        exit();
                     }
                 } else {
-                    $html = "Échec du téléchargement, l'image doit être au format png ou jpg <br>";
+                    header('Location: index.php?action=admin-gestion');
+                    exit();
                 }
             } else {
-                $html = "Échec du téléchargement, contacter un support !<br>";
+                header('Location: index.php?action=admin-gestion');
+                exit();
             }
         }
 

@@ -7,7 +7,7 @@ namespace iutnc\PiloteAndCo\actions;
 use iutnc\PiloteAndCo\models\Panier;
 use iutnc\PiloteAndCo\models\Produit;
 use iutnc\PiloteAndCo\render\PanierProduitRenderer;
-
+use iutnc\PiloteAndCo\exceptions\InvalidPropertyNameException;
 
 class ParcourirPanier extends Action
 {
@@ -29,13 +29,11 @@ class ParcourirPanier extends Action
 
             foreach ($panier as $p) {
                 $produit = Produit::getProductById($p->id_produit);
-
-
                 $html .= "
                            <li class='list-group-item d-flex justify-content-between align-items-center'>
                                <div class='d-flex align-items-center'>
                                    <a href='index.php?action=produit&id={$produit->id}' style='text-decoration: none; color: black;'>
-                                       <img src='./images/IMG_4989.JPG' alt='{$produit->nom}' class='img-fluid' style='width: 50px; height: 50px; object-fit: cover; margin-right: 10px;'>
+                                       <img src='{$produit->image}' alt='{$produit->nom}' class='img-fluid' style='width: 50px; height: 50px; object-fit: cover; margin-right: 10px;'>
                                        <span>{$produit->nom}</span>
                                    </a>
                                </div>
@@ -48,14 +46,12 @@ class ParcourirPanier extends Action
                                        </a>
                                        <span class='mx-3'>Quantité</span>";
 
-
                 if ($p->quantite < $produit -> qte_dispo) {
                     $html .= "
                                        <a href='index.php?action=ajouter_panier&id={$produit->id}&quantite=1' style='text-decoration: none; color: black;'>
                                            <button type='button' class='btn' id='decrease'><i class='fa-solid fa-plus fa-xl' style='color: #dcdb76;'></i></button>
                                        </a>";
                 }
-
 
                 $html .= "
                                    </div>
