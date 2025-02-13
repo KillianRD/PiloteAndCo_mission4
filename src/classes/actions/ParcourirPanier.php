@@ -25,9 +25,6 @@ class ParcourirPanier extends Action
                         foreach ($panier as $p) {
                             $produit = Produit::getProductById($p->id_produit);
 
-                            // Calculer la quantité maximale disponible
-                            $quantite_max = min($p->quantite, $produit->qte_dispo); // Ne pas dépasser la quantité disponible
-
                             $html .= "
                             <li class='list-group-item d-flex justify-content-between align-items-center'>
                                 <div class='d-flex align-items-center'>
@@ -36,7 +33,9 @@ class ParcourirPanier extends Action
                                         <span>{$produit->nom}</span>
                                     </a>
                                 </div>
-                                <i class='fa-solid fa-trash-can fa-xl ms-auto mx-3' style='color: #f07e2f;'></i>
+                                    <a class=' ms-auto mx-3' href='index.php?action=ajouter_panier&id={$produit->id}&quantite=-{$p->quantite}' style='text-decoration: none; color: black;'>
+                                        <i class='fa-solid fa-trash-can fa-xl' style='color: #f07e2f;'></i>
+                                    </a>
                                     <div class='d-flex align-items-center mx-3'>
                                         <a href='index.php?action=ajouter_panier&id={$produit->id}&quantite=-1' style='text-decoration: none; color: black;'>
                                             <button type='button' class='btn' id='increase'><i class='fa-solid fa-minus fa-xl' style='color: #dcdb76;'></i></button>
