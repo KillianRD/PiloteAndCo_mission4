@@ -3,6 +3,7 @@
 namespace iutnc\PiloteAndCo\models;
 
 use iutnc\PiloteAndCo\db\ConnectionFactory;
+use PDO;
 
 class Panier
 {
@@ -35,18 +36,18 @@ class Panier
         }
     }
 
-    public static function getProductsByIdUser(int $id_user): array
+    public static function getPanierByIdUser(int $id_user): array
     {
         $db = ConnectionFactory::makeConnection();
         $requete = $db->prepare("SELECT * FROM panier WHERE id_utilisateur = ?");
         $requete->bindParam(1, $id_user);
         $requete->execute();
 
-        $produits = [];
+        $panier = [];
         foreach ($requete->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            array_push($produits, $row["id_produit"]);
+            array_push($panier, new Panier($row['id_utilisateur'], $row['id_produit'], $row['qte']));
         }
 
-        return $produits;
+        return $panier;
     }
 }
