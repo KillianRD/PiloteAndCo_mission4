@@ -66,7 +66,7 @@ class Panier
             $update->bindParam(3, $id_produit);
             $update->execute();
         } else {
-            $insert = $db->prepare("INSERT INTO panier (`id_utilisateur`, `id_produit`, `qte`) VALUES (?, ? ?)");
+            $insert = $db->prepare("INSERT INTO panier (`id_utilisateur`, `id_produit`, `qte`) VALUES (?, ?, ?)");
             $insert->bindParam(1, $id_user);
             $insert->bindParam(2, $id_produit);
             $insert->bindParam(3, $quantite);
