@@ -3,9 +3,15 @@
 namespace iutnc\PiloteAndCo\dispatch;
 
 use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\admin\AddProduit;
+use iutnc\PiloteAndCo\actions\admin\GestionCatalogue;
+use iutnc\PiloteAndCo\actions\AjouterPanier;
+use iutnc\PiloteAndCo\actions\Infos;
 use iutnc\PiloteAndCo\actions\LoginAction;
 use iutnc\PiloteAndCo\actions\Logout;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
+use iutnc\PiloteAndCo\actions\ParcourirPanier;
+use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
 
 
@@ -45,10 +51,18 @@ class Dispatcher
                 $a = new RegisterAction();
                 break;
             case "logout" :
-                $a = new Logout();
+                if($user) {
+                    $a = new Logout();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "ajouter_panier":
-                $a = new AjouterPanier();
+                if($user) {
+                    $a = new AjouterPanier();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "produit" :
                 $produitId = $_GET['id'] ?? null;
@@ -59,7 +73,11 @@ class Dispatcher
                 }
                 break;
             case "panier":
-                $a = new ParcourirPanier();
+                if($user) {
+                    $a = new ParcourirPanier();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "admin-gestion":
                 if($user!=null && $user->isadmin){
@@ -76,7 +94,11 @@ class Dispatcher
                 }
                 break;
             case "infos":
-                $a = new Infos();
+                if($user) {
+                    $a = new Infos();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "home" :
             default :
