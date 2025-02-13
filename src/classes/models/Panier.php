@@ -49,4 +49,12 @@ class Panier
 
         return $produits;
     }
+    public static function ajouterPanier(int $id_user, int $id_produit, int $quantite){
+        $db = ConnectionFactory::makeConnection();
+        $insert = $db->prepare("INSERT INTO panier (`id_utilisateur`, `id_produit`, `qte`) VALUES (?, ? ?)");
+        $insert->bindParam(1, $id_user);
+        $insert->bindParam(2, $id_produit);
+        $insert->bindParam(3, $quantite);
+        $insert->execute();
+    }
 }
