@@ -72,12 +72,21 @@ class Panier
         $user = $requete->fetch();
         if ($user) {
             $q = (int)$user['qte'];
-            $q = $q + 1;
-            $update = $db->prepare("UPDATE panier SET qte = ? WHERE id_utilisateur = ? AND id_produit = ?");
-            $update->bindParam(1, $q);
-            $update->bindParam(2, $id_user);
-            $update->bindParam(3, $id_produit);
-            $update->execute();
+            $q = $q+$quantite;
+            if($q > 0){
+                $update = $db->prepare("UPDATE panier SET qte = ? WHERE id_utilisateur = ? AND id_produit = ?");
+                $update->bindParam(1, $q);
+                $update->bindParam(2, $id_user);
+                $update->bindParam(3, $id_produit);
+                $update->execute();
+            }
+            else{
+                $delete = $db->prepare("DELETE FROM panier WHERE id_utilisateur = ? AND id_produit = ?");
+                $delete->bindParam(1, $id_user);
+                $delete->bindParam(2, $id_produit);
+                $delete->execute();
+
+            }
         } else {
             $insert = $db->prepare("INSERT INTO panier (`id_utilisateur`, `id_produit`, `qte`) VALUES (?, ?, ?)");
             $insert->bindParam(1, $id_user);

@@ -18,7 +18,7 @@ class ValiderPanier extends Action
 
         $html .= "Vous avez validé votre panier !";
         $html .= $total . "€";
-        
+
         return $html;
     }
 }
