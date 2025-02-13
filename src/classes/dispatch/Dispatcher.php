@@ -46,7 +46,7 @@ class Dispatcher
             case "logout" :
                 $a = new Logout();
                 break;
-            case "Panier":
+            case "panier":
                 $a = new ParcourirPanier();
                 break;
             case "infos":
@@ -66,7 +66,7 @@ class Dispatcher
         if (isset($_SESSION['user'])) {
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
-                        <a href="?action=Panier" class="navlink">
+                        <a href="?action=panier" class="navlink">
                             <i class="fa-solid fa-cart-shopping" style="color: #dcdb76;"></i>
                         </a>
                         <p class="mx-2 mt-0 mb-0">/</p>
