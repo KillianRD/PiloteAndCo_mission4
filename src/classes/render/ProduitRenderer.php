@@ -16,8 +16,8 @@ class ProduitRenderer implements Renderer
     public function render(): string
     {
         $html = <<<END
-            <div class="produit_grille">
-                <img src="{$this->produit->image}">
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{$this->produit->image}" alt="{$this->produit->description}">
                 <p>{$this->produit->nom}</p><p>{$this->produit->prix}</p>
             </div>
         END;
