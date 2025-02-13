@@ -18,6 +18,31 @@ a.navlink:hover {
     background-color: #2B666F;
 }
 
+.white-text {
+    color: #ffffff;
+}
+
+.green-color{
+    background-color: #DCDB76;
+}
+
+.bg-green{
+    background-color: #DCDB76;
+}
+
+.bg-orange{
+    background-color: #F07E2F;
+}
+
+.green-btn-color{
+    background-color: #DCDB76;
+}
+
+.green-btn-color:hover{
+    background-color: #F07E2F;
+}
+
+
 .carousel-inner {
     display: flex;
     flex-wrap: nowrap;

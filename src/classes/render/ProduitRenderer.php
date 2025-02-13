@@ -17,12 +17,13 @@ class ProduitRenderer implements Renderer
     {
         $html = <<<END
                     <div class="card text-center mx-2" style="width: 18rem;">
-                        <a src="index.php?action=produit&id={$this->produit->id}">TEST</a>
+                        <a href="index.php?action=produit&id={$this->produit->id}">
                             <img src="./images/IMG_4989.JPG" class="card-img-top img-fluid" alt="{$this->produit->description}" style="height: 200px; object-fit: cover;">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">{$this->produit->nom}</h5>
                             <p class="card-text fw-bold">{$this->produit->prix} €</p>
-                            <a href="index.php?action=ajouter_panier&id={$this->produit->id}" class="btn btn-primary">Ajouter au panier</a>
+                            <a href="index.php?action=ajouter_panier&id={$this->produit->id}" class="btn green-btn-color">Ajouter au panier</a>
                         </div>
                     </div>
         END;
