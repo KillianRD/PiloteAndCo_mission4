@@ -138,7 +138,7 @@ class Dispatcher
                             <a href="index.php?action=electromenager" class="navlink mx-4">Electroménager</a>
                             <a href="index.php?action=jardinage" class="navlink mx-4">Jardinage & bricolage</a>
                             <a href="index.php?action=literie" class="navlink mx-4">Literie</a>
-                            <a href="index.php?action=jsp" class="navlink mx-4">Mobilier</a>
+                            <a href="index.php?action=mobilier" class="navlink mx-4">Mobilier</a>
                         </div>
                         <!-- Connexion/inscription ou utilisateur connecté à droite -->
                         <div>                            
