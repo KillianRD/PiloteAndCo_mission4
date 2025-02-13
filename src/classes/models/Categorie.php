@@ -35,8 +35,11 @@ class Categorie
         $requete = $db->prepare("SELECT * FROM categorie WHERE nom = ?");
         $requete->bindParam(1, $name);
         $requete->execute();
-
         $row = $requete->fetch(PDO::FETCH_ASSOC);
-        return new Categorie($row['id_categorie'], $row['nom']);
+        if(isset($row['id_categorie'])){
+            return new Categorie($row['id_categorie'], $row['nom']);
+        }
+        return new Categorie(-1, "Defaut");
+
     }
 }
