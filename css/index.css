@@ -7,7 +7,7 @@ h1 {
 a.navlink {
     color: #DCDB76;
     text-decoration: none;
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 a.navlink:hover {
@@ -16,4 +16,23 @@ a.navlink:hover {
 
 .bg-canary{
     background-color: #2B666F;
+}
+
+.carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.carousel-item {
+    flex: 0 0 20%; /* 100% / 5 items = 20% pour chaque élément */
+    transition: transform 0.5s ease;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%; /* Ajuste la largeur des boutons pour être plus petits */
+}
+
+.carousel-item img {
+    width: 100%; /* S'assure que l'image occupe toute la largeur de l'élément */
 }
