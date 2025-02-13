@@ -12,7 +12,7 @@ class AjouterPanier extends Action{
         if(isset($_SESSION["user"]) && isset($_GET["id"])){
             $user = unserialize($_SESSION["user"]);
             $id_produit = (int) $_GET["id"];
-            Panier::ajouterPanier($user->id, $id_produit, 1);
+            Panier::ajouterPanier((int)$user->id, (int)$id_produit, 1);
             $accueil = new Accueil();
             return $accueil->execute();
         }
