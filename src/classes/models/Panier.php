@@ -47,6 +47,14 @@ class Panier
         return $total;
     }
 
+    public static function supprimerPanier(int $id_user)
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("DELETE FROM panier WHERE id_utilisateur = ?");
+        $requete->bindParam(1, $id_user);
+        $requete->execute();
+    }
+
     public static function getPanierByIdUser(int $id_user): array
     {
         $db = ConnectionFactory::makeConnection();
@@ -72,15 +80,14 @@ class Panier
         $user = $requete->fetch();
         if ($user) {
             $q = (int)$user['qte'];
-            $q = $q+$quantite;
-            if($q > 0){
+            $q = $q + $quantite;
+            if ($q > 0) {
                 $update = $db->prepare("UPDATE panier SET qte = ? WHERE id_utilisateur = ? AND id_produit = ?");
                 $update->bindParam(1, $q);
                 $update->bindParam(2, $id_user);
                 $update->bindParam(3, $id_produit);
                 $update->execute();
-            }
-            else{
+            } else {
                 $delete = $db->prepare("DELETE FROM panier WHERE id_utilisateur = ? AND id_produit = ?");
                 $delete->bindParam(1, $id_user);
                 $delete->bindParam(2, $id_produit);
