@@ -13,6 +13,7 @@ use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 use iutnc\PiloteAndCo\actions\ParcourirPanier;
 use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\ValiderPanier;
 
 
 class Dispatcher
@@ -28,7 +29,7 @@ class Dispatcher
     {
         $html = "";
         $user = null;
-        if(isset($_SESSION['user'])){
+        if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
         }
         switch ($this->action) {
@@ -51,14 +52,14 @@ class Dispatcher
                 $a = new RegisterAction();
                 break;
             case "logout" :
-                if($user) {
+                if ($user) {
                     $a = new Logout();
                 } else {
                     $a = new Accueil();
                 }
                 break;
             case "ajouter_panier":
-                if($user) {
+                if ($user) {
                     $a = new AjouterPanier();
                 } else {
                     $a = new Accueil();
@@ -73,28 +74,31 @@ class Dispatcher
                 }
                 break;
             case "panier":
-                if($user) {
+                if ($user) {
                     $a = new ParcourirPanier();
                 } else {
                     $a = new Accueil();
                 }
                 break;
+            case "checkout":
+                $a = new ValiderPanier();
+                break;
             case "admin-gestion":
-                if($user!=null && $user->isadmin){
+                if ($user != null && $user->isadmin) {
                     $a = new GestionCatalogue();
                 } else {
                     $a = new Accueil();
                 }
                 break;
             case "admin-add-article":
-                if($user!=null && $user->isadmin){
+                if ($user != null && $user->isadmin) {
                     $a = new AddProduit();
                 } else {
                     $a = new Accueil();
                 }
                 break;
             case "infos":
-                if($user) {
+                if ($user) {
                     $a = new Infos();
                 } else {
                     $a = new Accueil();
@@ -113,7 +117,7 @@ class Dispatcher
     {
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>': "";
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=panier" class="navlink">

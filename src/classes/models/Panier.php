@@ -41,7 +41,7 @@ class Panier
         $produits = Panier::getPanierByIdUser($id_user);
         $total = 0;
         foreach ($produits as $produit) {
-            $total += Produit::getProductById($produit->id_produit)->prix * $produit->qte;
+            $total += Produit::getProductById($produit->id_produit)->prix * $produit->quantite;
         }
 
         return $total;
