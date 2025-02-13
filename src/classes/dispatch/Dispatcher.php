@@ -2,6 +2,8 @@
 
 namespace iutnc\PiloteAndCo\dispatch;
 
+use iutnc\PiloteAndCo\actions\Accueil;
+
 class Dispatcher
 {
 
@@ -14,10 +16,12 @@ class Dispatcher
 
     public function run(): void
     {
-        $html = "";
+        $html = (new Accueil())->execute();
 
         switch ($this->action) {
-
+            case "accueil":
+                $html = (new Accueil())->execute();
+                break;
         }
 
         $this->renderPage($html);
@@ -26,10 +30,8 @@ class Dispatcher
     private function renderPage(string $html) : void
     {
         echo <<<END
-            
-            Salut, je suis la page de ecommerce de Pilote&Co
-            
-        END;
+                $html
+            END;
 
     }
 }

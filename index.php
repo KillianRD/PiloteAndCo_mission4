@@ -10,3 +10,4 @@ ConnectionFactory::setConfig(__DIR__ . '/src/conf/db.config.ini');
 
 $dispatch = new Dispatcher();
 $dispatch->run();
+
