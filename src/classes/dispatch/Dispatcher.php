@@ -54,9 +54,7 @@ class Dispatcher
                         <a href="index.php">Accueil</a>
                     </nav>
                 </header>
-        END
-            . $html .
-            <<<END
+            $html
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-gH0i7tq3bJwSD6GfXn985OJXmd0Y5I8au3/UoxZCGLFqGF4twkwRjSMP9QSDRNNx" crossorigin="anonymous"></script>
             </body>
         </html>
