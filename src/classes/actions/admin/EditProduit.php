@@ -114,16 +114,20 @@ END;
                             $insert->bindParam(8, $_POST['id']);
                             $insert->execute();
 
-                            $html = "<h1>L'article a été mis à jour avec succès</h1>";
+                            header('Location: index.php?action=admin-gestion');
+                            exit();
 
                         } else {
-                            $html = "Téléchargement non valide<br>";
+                            header('Location: index.php?action=admin-gestion');
+                            exit();
                         }
                     } else {
-                        $html = "Échec du téléchargement, l'image doit être au format png ou jpg <br>";
+                        header('Location: index.php?action=admin-gestion');
+                        exit();
                     }
                 } else {
-                    $html = "Échec du téléchargement, contacter un support !<br>";
+                    header('Location: index.php?action=admin-gestion');
+                    exit();
                 }
             } else {
                 $db = ConnectionFactory::makeConnection();
@@ -135,7 +139,8 @@ END;
                 $insert->bindParam(5, $_POST['qte']);
                 $insert->bindParam(6, $_POST['id_categorie']);
                 $insert->bindParam(7, $_POST['id']);
-                $html = "<h1>L'article a été mis à jour avec succès</h1>";
+                header('Location: index.php?action=admin-gestion');
+                exit();
             }
 
         }
