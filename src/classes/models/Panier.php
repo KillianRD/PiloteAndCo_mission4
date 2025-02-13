@@ -56,12 +56,14 @@ class Panier
         $requete->bindParam(1, $id_user);
         $requete->bindParam(2, $id_produit);
         $requete->execute();
-        if ($requete->fetch()) {
-            $q = (int)$requete['qte'];
+        $user = $requete->fetch();
+        if ($user) {
+            $q = (int)$user['qte'];
             $q = $q+1;
             $update = $db->prepare("UPDATE panier SET qte = ? WHERE id_utilisateur = ? AND id_produit = ?");
-            $update->bindParam(1, $id_user);
-            $update->bindParam(2, $id_produit);
+            $update->bindParam(1, $q);
+            $update->bindParam(2, $id_user);
+            $update->bindParam(3, $id_produit);
             $update->execute();
         } else {
             $insert = $db->prepare("INSERT INTO panier (`id_utilisateur`, `id_produit`, `qte`) VALUES (?, ? ?)");
