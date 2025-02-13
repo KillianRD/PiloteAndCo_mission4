@@ -38,7 +38,7 @@ class GestionCatalogue extends Action
                 <td>{$row['poids']} kg</td>
                 <td>{$row['qte_dispo']}</td>
                 <td>{$row['categorie_nom']}</td>
-                <td><a href="?action=edit-article&id={$row['id_produit']}"></a></td>
+                <td><a href="?action=admin-edit-article&id={$row['id_produit']}"><i class="fa-regular fa-pen-to-square fa-xl" style="color:black"></i></a></td>
             </tr>
             END;
         }

@@ -4,6 +4,7 @@ namespace iutnc\PiloteAndCo\dispatch;
 
 use iutnc\PiloteAndCo\actions\Accueil;
 use iutnc\PiloteAndCo\actions\admin\AddProduit;
+use iutnc\PiloteAndCo\actions\admin\EditProduit;
 use iutnc\PiloteAndCo\actions\admin\GestionCatalogue;
 use iutnc\PiloteAndCo\actions\AjouterPanier;
 use iutnc\PiloteAndCo\actions\Infos;
@@ -89,6 +90,13 @@ class Dispatcher
             case "admin-add-article":
                 if($user!=null && $user->isadmin){
                     $a = new AddProduit();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
+            case "admin-edit-article":
+                if($user!=null && $user->isadmin){
+                    $a = new EditProduit();
                 } else {
                     $a = new Accueil();
                 }
