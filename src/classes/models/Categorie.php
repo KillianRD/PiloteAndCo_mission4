@@ -42,4 +42,18 @@ class Categorie
         return new Categorie(-1, "Defaut");
 
     }
+
+    public static function getCategoryById(string $id): Categorie
+    {
+        $db = ConnectionFactory::makeConnection();
+        $requete = $db->prepare("SELECT * FROM categorie WHERE id_categorie = ?");
+        $requete->bindParam(1, $id);
+        $requete->execute();
+        $row = $requete->fetch(PDO::FETCH_ASSOC);
+        if(isset($row['nom'])){
+            return new Categorie($row['id_categorie'], $row['nom']);
+        }
+        return new Categorie(-1, "Defaut");
+
+    }
 }

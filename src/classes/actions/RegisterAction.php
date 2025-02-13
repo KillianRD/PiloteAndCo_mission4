@@ -13,21 +13,54 @@ class RegisterAction extends Action
         $html = '';
         if ($this->http_method === 'GET') {
             $html = <<<END
-                <form method='post' action='?action=register'>
-                    <h1>Inscription</h1>  
-                    <div >
-                        <input type='text' placeholder="Nom" name='nom'</input> 
-                        <input type='text' placeholder="Prenom" name='prenom'</input>
-                        <input type='date' placeholder="Date de naissance" name='date_naiss'</input>
-                        <input type='email' placeholder="Email" name='email'</input>
-                        <input type='text' placeholder="Adresse" name='adresse'</input>
-                        <input type='text' placeholder="Code Postal" name='code_postal'</input>
-                        <input type='text' placeholder="Ville" name='ville'</input>
-                        <input type='password' placeholder="Mot de passe" name='password'</input>
-                        <input type='password' placeholder="Confirmer mot de passe" name='confirm'</input>
-                        <button type='submit'>S'inscrire</button>
-                     </div> 
-                </form>    
+                <form method="post" action="?action=register" class="container py-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card shadow-lg p-4 rounded">
+                                <h1 class="text-center mb-4">Inscription</h1>
+                                <div class="form-group mb-3">
+                                    <label for="nom" class="form-label">Nom</label>
+                                    <input type="text" id="nom" name="nom" class="form-control" placeholder="Entrez votre nom" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="prenom" class="form-label">Prénom</label>
+                                    <input type="text" id="prenom" name="prenom" class="form-control" placeholder="Entrez votre prénom" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="date_naiss" class="form-label">Date de naissance</label>
+                                    <input type="date" id="date_naiss" name="date_naiss" class="form-control" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Entrez votre email" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="adresse" class="form-label">Adresse</label>
+                                    <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Entrez votre adresse" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="code_postal" class="form-label">Code Postal</label>
+                                    <input type="text" id="code_postal" name="code_postal" class="form-control" placeholder="Entrez votre code postal" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="ville" class="form-label">Ville</label>
+                                    <input type="text" id="ville" name="ville" class="form-control" placeholder="Entrez votre ville" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="password" class="form-label">Mot de passe</label>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="confirm" class="form-label">Confirmer mot de passe</label>
+                                    <input type="password" id="confirm" name="confirm" class="form-control" placeholder="Confirmez votre mot de passe" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn green-btn-color btn-lg">S'inscrire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                END;
         } else {
             $nom = filter_var($_POST['nom'], FILTER_SANITIZE_EMAIL);
@@ -42,11 +75,8 @@ class RegisterAction extends Action
 
             try {
                 Inscription::register($email, $password, $confirm, $nom, $prenom, $date_naiss, $adresse, $codepostal, $ville);
-                $html = <<<END
-                <div>
-                    <p>Votre compte a été créé avec succès !</p>
-                </div> 
-                END;
+                header('Location: index.php?action=accueil');
+                exit();
             } catch (AuthException $e) {
                 $html = <<<END
                 <div>
