@@ -4,25 +4,24 @@
 
     use iutnc\PiloteAndCo\actions\Accueil;
 
-    class Dispatcher
-    {
-
+class Dispatcher
+{
         private ?string $action;
 
         public function __construct()
         {
             $this->action = $_GET['action'] ?? null;
         }
+    public function run(): void
+    {
+        $html = (new Accueil())->execute();
 
-        public function run(): void
-        {
-            $html = (new Accueil())->execute();
-
-            switch ($this->action) {
-                case 'accueil':
-                    $html .= (new Accueil())->execute();
-                    break;
-
+        switch ($this->action) {
+            case "home" :
+            default :
+                $a = new Accueil();
+                $html .= $a->execute();
+                break;
             }
 
             $this->renderPage($html);
