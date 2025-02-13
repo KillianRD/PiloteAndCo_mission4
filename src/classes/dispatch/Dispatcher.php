@@ -35,15 +35,16 @@ class Dispatcher
         </head>
             <body>
                 <header>
-                    <div class="top-bar">
-                        <div class="logo">
-                            <a href="index.php"><img src="test.png" alt="logo"/></a>
+                    <div class="bg-dark text-white py-2">
+                        <div class="container d-flex justify-content-between align-items-center">
+                            <a href="index.php"><img src="/images/logo.png" alt="logo"/></a>
                         </div>
-                        <div class="auth">
-                            <a href="index.php&action=login">Login</a>
+                        <div>
+                            <a href="index.php&action=login" class="btn btn-outline-light me-2">Se connecter</a>
+                            <a href="index.php&action=register" class="btn btn-light">S'inscrire</a>
                         </div>
                     </div>
-                    <nav class="nav-bar">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
                         <a href="index.php">Accueil</a>
                     </nav>
                 </header>
