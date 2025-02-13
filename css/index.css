@@ -14,6 +14,31 @@ a.navlink:hover {
     color: #F07E2F ;
 }
 
+.slider-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0));
+}
+
+.slider {
+    display: flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: slideInfinite 60s linear infinite;
+    width: max-content;
+}
+
+@keyframes slideInfinite {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 .bg-canary{
     background-color: #2B666F;
 }
@@ -60,4 +85,18 @@ a.navlink:hover {
 
 .carousel-item img {
     width: 100%; /* S'assure que l'image occupe toute la largeur de l'élément */
+}
+
+
+.dropdown-menu {
+    background-color: #2B666F !important;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #DCDB76 !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #3a7c81 !important;
+    color: #ffffff !important;
 }

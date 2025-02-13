@@ -14,6 +14,7 @@ use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 use iutnc\PiloteAndCo\actions\ParcourirPanier;
 use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\ValiderPanier;
 
 
 class Dispatcher
@@ -29,7 +30,7 @@ class Dispatcher
     {
         $html = "";
         $user = null;
-        if(isset($_SESSION['user'])){
+        if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
         }
         switch ($this->action) {
@@ -52,14 +53,14 @@ class Dispatcher
                 $a = new RegisterAction();
                 break;
             case "logout" :
-                if($user) {
+                if ($user) {
                     $a = new Logout();
                 } else {
                     $a = new Accueil();
                 }
                 break;
             case "ajouter_panier":
-                if($user) {
+                if ($user) {
                     $a = new AjouterPanier();
                 } else {
                     $a = new Accueil();
@@ -74,21 +75,24 @@ class Dispatcher
                 }
                 break;
             case "panier":
-                if($user) {
+                if ($user) {
                     $a = new ParcourirPanier();
                 } else {
                     $a = new Accueil();
                 }
                 break;
+            case "checkout":
+                $a = new ValiderPanier();
+                break;
             case "admin-gestion":
-                if($user!=null && $user->isadmin){
+                if ($user != null && $user->isadmin) {
                     $a = new GestionCatalogue();
                 } else {
                     $a = new Accueil();
                 }
                 break;
             case "admin-add-article":
-                if($user!=null && $user->isadmin){
+                if ($user != null && $user->isadmin) {
                     $a = new AddProduit();
                 } else {
                     $a = new Accueil();
@@ -102,7 +106,7 @@ class Dispatcher
                 }
                 break;
             case "infos":
-                if($user) {
+                if ($user) {
                     $a = new Infos();
                 } else {
                     $a = new Accueil();
@@ -121,7 +125,7 @@ class Dispatcher
     {
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>': "";
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=panier" class="navlink">
@@ -129,7 +133,7 @@ class Dispatcher
                         </a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn green-btn-color dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 Mon profil
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -163,6 +167,7 @@ class Dispatcher
                 <title>Réstore</title>
 
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <link rel='shortcut icon' href='./images/logo_mini.png' type='image/x-icon'>
                 <link href="./css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -185,7 +190,7 @@ class Dispatcher
                             <a href="index.php?action=electromenager" class="navlink mx-4">Electroménager</a>
                             <a href="index.php?action=jardinage" class="navlink mx-4">Jardinage & bricolage</a>
                             <a href="index.php?action=literie" class="navlink mx-4">Literie</a>
-                            <a href="index.php?action=jsp" class="navlink mx-4">Mobilier</a>
+                            <a href="index.php?action=mobilier" class="navlink mx-4">Mobilier</a>
                         </div>
                         <!-- Connexion/inscription ou utilisateur connecté à droite -->
                         <div>                            

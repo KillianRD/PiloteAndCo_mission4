@@ -14,10 +14,10 @@ class ValiderPanier extends Action
         if (isset($_SESSION['user'])) {
             $u  = unserialize($_SESSION['user']);
             $total = Panier::validerPanier($u->id);
+            Panier::supprimerPanier($u->id);
         }
 
-        $html .= "Vous avez validé votre panier !";
-        $html .= $total . "€";
+        $html .= "<h2 class='text-center mx-auto mt-5'>Vous avez validé votre panier : $total € </h2>";
 
         return $html;
     }

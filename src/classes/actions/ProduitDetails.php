@@ -22,7 +22,7 @@ class ProduitDetails extends Action{
         <a href='javascript:history.back()'><i class='fa-solid fa-arrow-right fa-rotate-180 fa-2xl' style='color: #dcdb76;'></i></a>
         <div class='row align-items-start my-5'>
             <div class='col-md-6'>
-                <img src='./images/IMG_4989.JPG' class='img-fluid rounded shadow' alt='' style='max-height: 500px; object-fit: cover;'>
+                <img src='{$product->image}' class='img-fluid rounded shadow' alt='' style='max-height: 500px; object-fit: cover;'>
             </div>
             <div class='col-md-6 d-flex flex-column'>
                 <div class='mb-auto'>
