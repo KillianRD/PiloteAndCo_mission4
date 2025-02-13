@@ -16,7 +16,7 @@ class LoginAction extends Action
                 <form method='post' action='?action=login'> 
                         <h1><img src="/images/logo.png" alt="Logo">Bienvenue sur Réstore</h1>
                         <div>
-                            <input type='text' placeholder="Email" name='email'>
+                            <input type='text' placeholder="Email" name='mail'>
                             <input type='password' placeholder="Mot de passe" name='mdp'>
                             <button type='submit' >Se connecter</button>
                             <p>______________________________________________</p>
@@ -42,7 +42,7 @@ class LoginAction extends Action
                         <div>
                             <p>Erreur lors de la connexion à votre compte !</p>
                             <p>Vous n'avez pas encore de compte ?</p>
-                            <a href='?action=add-user'>S'inscrire</a>
+                            <a href='?action=register'>S'inscrire</a>
                         </div>
                     </div>
                 END;

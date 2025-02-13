@@ -16,7 +16,7 @@ class Authentification
         $requete->execute();
 
         $hashpass = $requete->fetch(PDO::FETCH_ASSOC);
-        if (!password_verify($password, $hashpass['passwd'])) {
+        if (!password_verify($password, $hashpass['mdp'])) {
             throw new AuthException("Problème lors de la connection au compte");
         } else {
             Authentification::loadProfile($mail);
@@ -31,7 +31,7 @@ class Authentification
         $requete->execute();
         $infoUser = $requete->fetch(PDO::FETCH_ASSOC);
 
-        $user = new Utilisateur($infoUser['id'] ,$infoUser['nom'], $infoUser['prenom'], $infoUser['mail'], $infoUser['password'], $infoUser['date_naiss'], $infoUser['adresse'], $infoUser['code_postal'], $infoUser['ville'], $infoUser['isadmin']);
+        $user = new Utilisateur($infoUser['id_utilisateur'] ,$infoUser['nom'], $infoUser['prenom'], $infoUser['mail'], $infoUser['mdp'], $infoUser['date_naiss'], $infoUser['adresse'], $infoUser['code_postal'], $infoUser['ville'], $infoUser['isadmin']);
         $_SESSION['user'] = serialize($user);
     }
 

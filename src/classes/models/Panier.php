@@ -2,6 +2,8 @@
 
 namespace iutnc\PiloteAndCo\models;
 
+use iutnc\PiloteAndCo\exceptions\InvalidPropertyNameException;
+
 class Panier{
     private int $id_utilisateur;
     private int $id_produit;

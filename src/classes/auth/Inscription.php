@@ -11,13 +11,13 @@ class Inscription
     public static function register(string $mail, string $mdp, string $confirmMdp, string $nom, string $prenom, string $date_naiss, string $adresse, string $code_postal, string $ville): void
     {
         $db = ConnectionFactory::makeConnection();
-        $verifDupEmail = $db->prepare("SELECT mail FROM USER WHERE mail = ?");
+        $verifDupEmail = $db->prepare("SELECT mail FROM utilisateur WHERE mail = ?");
         $verifDupEmail->bindParam(1, $mail);
         $verifDupEmail->execute();
 
         if (($verifDupEmail->fetch(PDO::FETCH_ASSOC) === false) && self::checkPassStrength($mdp) && ($mdp === $confirmMdp)) {
             $hashpass = password_hash($mdp, PASSWORD_DEFAULT, ['cost' => 12]);
-            $insert = $db->prepare("INSERT INTO USER (`mail`, `mdp`, `nom`, `prenom`, `date_naiss`, `adresse`, `code_postal`, `ville`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $insert = $db->prepare("INSERT INTO utilisateur (`mail`, `mdp`, `nom`, `prenom`, `date_naiss`, `adresse`, `code_postal`, `ville`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $insert->bindParam(1, $mail);
             $insert->bindParam(2, $hashpass);
             $insert->bindParam(3, $nom);
@@ -34,7 +34,7 @@ class Inscription
         }
     }
 
-    private static function checkPassStrength(string $pass, int $min = 8): bool
+    private static function checkPassStrength(string $pass, int $min = 6): bool
     {
         $length = (strlen($pass) >= $min);
         $digit = preg_match("#[\d]#", $pass);
