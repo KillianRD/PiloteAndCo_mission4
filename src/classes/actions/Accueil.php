@@ -14,21 +14,22 @@ class Accueil extends Action
         $produits = Produit::get5Products();
         foreach ($produits as $produit) {
             $pr = new ProduitRenderer($produit);
-
             $produitHtml .= $pr->render();
-
         }
 
         $html = "
-                <div class='py-5'>
-                    <h1 class='my-5 text-center'>Les nouveautés</h1>
-                    <div class='container text-center my-4'>
-                        <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
-                               $produitHtml
+            <div class='py-5 overflow-hidden'>
+                <h1 class='my-5 text-center'>Les nouveautés</h1>
+                <div class='container text-center my-4'>
+                    <div class='slider-wrapper'>
+                        <div class='slider'>
+                            $produitHtml
+                            $produitHtml
                         </div>
                     </div>
                 </div>
-                                <div class='py-5'>
+            </div>
+                <div class='py-5'>
                     <h1 class='my-5 text-center'>Electroménager reconditionné</h1>
                     <div class='container text-center my-4'>
                         <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
@@ -36,7 +37,7 @@ class Accueil extends Action
                         </div>
                     </div>
                 </div>
-                                <div class='py-5'>
+                <div class='py-5'>
                     <h1 class='my-5 text-center'>Matériel de bricolage et jardinage rénové</h1>
                     <div class='container text-center my-4'>
                         <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
@@ -44,7 +45,7 @@ class Accueil extends Action
                         </div>
                     </div>
                 </div>
-                                <div class='py-5'>
+                    <div class='py-5'>
                     <h1 class='my-5 text-center'>Mobilier transformé upcyclé</h1>
                     <div class='container text-center my-4'>
                         <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
@@ -52,7 +53,7 @@ class Accueil extends Action
                         </div>
                     </div>
                 </div>
-                                                <div class='py-5'>
+                <div class='py-5'>
                     <h1 class='my-5 text-center'>Produits de literie écologiques</h1>
                     <div class='container text-center my-4'>
                         <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
