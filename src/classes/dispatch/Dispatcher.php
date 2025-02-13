@@ -2,11 +2,11 @@
 
 namespace iutnc\PiloteAndCo\dispatch;
 
-    use iutnc\PiloteAndCo\actions\Accueil;
-    use iutnc\PiloteAndCo\actions\LoginAction;
-    use iutnc\PiloteAndCo\actions\Logout;
-    use iutnc\PiloteAndCo\actions\ParcourirCategorie;
-    use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\LoginAction;
+use iutnc\PiloteAndCo\actions\Logout;
+use iutnc\PiloteAndCo\actions\ParcourirCategorie;
+use iutnc\PiloteAndCo\actions\RegisterAction;
 
 
 class Dispatcher
@@ -35,7 +35,6 @@ class Dispatcher
             case "mobilier":
                 $a = new ParcourirCategorie("mobilier");
                 break;
-            case "home" :
             case "login" :
                 $a = new LoginAction();
                 break;
@@ -45,6 +44,10 @@ class Dispatcher
             case "logout" :
                 $a = new Logout();
                 break;
+            case "Panier":
+                $a = new ParcourirPanier();
+                break;
+            case "home" :
             default :
                 $a = new Accueil();
                 break;
@@ -53,11 +56,12 @@ class Dispatcher
         $this->renderPage($html);
     }
 
-        private function afficherLoginOrProfil():string{
-            if(isset($_SESSION['user'])){
-                return <<<END
+    private function afficherLoginOrProfil(): string
+    {
+        if (isset($_SESSION['user'])) {
+            return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
-                        <a href="?action=profil" class="navlink">Panier</a>
+                        <a href="?action=Panier" class="navlink">🧺</a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,22 +75,22 @@ class Dispatcher
                         </div>
                     </div>
                 END;
-            } else {
-                return <<<END
+        } else {
+            return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=login" class="navlink">Se connecter</a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <a href="?action=register" class="navlink">S'inscrire</a>
                     </div>
                 END;
-            }
         }
+    }
 
-        private function renderPage(string $html): void
-        {
-            $connexionOuProfil = $this->afficherLoginOrProfil();
-            echo
-            <<<END
+    private function renderPage(string $html): void
+    {
+        $connexionOuProfil = $this->afficherLoginOrProfil();
+        echo
+        <<<END
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -131,7 +135,6 @@ class Dispatcher
         </html>
         END;
     }
-
 
 
 }
