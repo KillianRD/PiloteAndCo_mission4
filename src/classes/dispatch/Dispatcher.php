@@ -1,13 +1,13 @@
 <?php
 
 namespace iutnc\PiloteAndCo\dispatch;
-
-    use iutnc\PiloteAndCo\actions\Accueil;
-    use iutnc\PiloteAndCo\actions\LoginAction;
-    use iutnc\PiloteAndCo\actions\Logout;
-    use iutnc\PiloteAndCo\actions\ParcourirCategorie;
-    use iutnc\PiloteAndCo\actions\ProduitDetails;
-    use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\LoginAction;
+use iutnc\PiloteAndCo\actions\Logout;
+use iutnc\PiloteAndCo\actions\ParcourirCategorie;
+use iutnc\PiloteAndCo\actions\ParcourirPanier;
+use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\Infos;
 
 
 class Dispatcher
@@ -36,7 +36,6 @@ class Dispatcher
             case "mobilier":
                 $a = new ParcourirCategorie("mobilier");
                 break;
-            case "home" :
             case "login" :
                 $a = new LoginAction();
                 break;
@@ -54,6 +53,13 @@ class Dispatcher
                     $html .= "Produit introuvable.";
                 }
                 break;
+            case "Panier":
+                $a = new ParcourirPanier();
+                break;
+            case "infos":
+                $a = new Infos();
+                break;
+            case "home" :
             default :
                 $a = new Accueil();
                 break;
@@ -62,46 +68,49 @@ class Dispatcher
         $this->renderPage($html);
     }
 
-        private function afficherLoginOrProfil():string{
-            if(isset($_SESSION['user'])){
-                return <<<END
+    private function afficherLoginOrProfil(): string
+    {
+        if (isset($_SESSION['user'])) {
+            return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
-                        <a href="?action=profil" class="navlink">Panier</a>
+                        <a href="?action=Panier" class="navlink">
+                            <i class="fa-solid fa-cart-shopping" style="color: #dcdb76;"></i>
+                        </a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
+                                Mon profil
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="?action=infos">Mes informations</a></li>
+                                <li><a class="dropdown-item" href="?action=logout">Se déconnecter</a></li>
                             </ul>
                         </div>
                     </div>
                 END;
-            } else {
-                return <<<END
+        } else {
+            return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=login" class="navlink">Se connecter</a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <a href="?action=register" class="navlink">S'inscrire</a>
                     </div>
                 END;
-            }
         }
+    }
 
-        private function renderPage(string $html): void
-        {
-            $connexionOuProfil = $this->afficherLoginOrProfil();
-            echo
-            <<<END
+    private function renderPage(string $html): void
+    {
+        $connexionOuProfil = $this->afficherLoginOrProfil();
+        echo
+        <<<END
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
                 <title>Réstore</title>
 
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
                 <link href="./css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -135,13 +144,10 @@ class Dispatcher
                 </header>
             $html
                 <script src="./js/bootstrap.bundle.js" crossorigin="anonymous"></script>
-
-
             </body>
         </html>
         END;
     }
-
 
 
 }
