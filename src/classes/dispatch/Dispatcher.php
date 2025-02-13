@@ -60,12 +60,12 @@ class Dispatcher
             <head>
                 <meta charset="UTF-8">
                 <title>Réstore</title>
-                <link href="../../../css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+                <link href="./css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="../../../css/index.css">
+                <link rel="stylesheet" href="./css/index.css">
             </head>
             <body>
                 <header style="height: 120px;">
@@ -73,7 +73,7 @@ class Dispatcher
                         <!-- Logo à gauche -->
                         <div>
                             <a href="index.php">
-                                <img src="/images/logo.png" alt="logo" style="height: 20em;">
+                                <img src="./images/logo.png" alt="logo" style="height: 20em;">
                             </a>
                         </div>
                         <!-- Thèmes des produits au centre -->
@@ -102,7 +102,7 @@ class Dispatcher
                     </div>
                 </header>
             $html
-            <script src="../../../js/bootstrap.js" crossorigin="anonymous"></script>
+            <script src="./js/bootstrap.js" crossorigin="anonymous"></script>
             </body>
         </html>
         END;
