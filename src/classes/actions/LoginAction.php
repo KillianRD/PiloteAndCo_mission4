@@ -43,12 +43,8 @@ class LoginAction extends Action
             try {
                 Authentification::authenticate($email, $password);
                 $user = unserialize($_SESSION['user']);
-                $html = <<<END
-                <div>
-                    <h1>Bienvenue {$user->prenom}</h1>
-                    <a href='?action=logout'>Se déconnecter</a>
-                </div> 
-                END;
+                header('Location: index.php?action=accueil');
+                exit();
             } catch (AuthException $e) {
                 $html = <<<END
                 <div class="container py-5">

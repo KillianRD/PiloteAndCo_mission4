@@ -75,11 +75,8 @@ class RegisterAction extends Action
 
             try {
                 Inscription::register($email, $password, $confirm, $nom, $prenom, $date_naiss, $adresse, $codepostal, $ville);
-                $html = <<<END
-                <div>
-                    <p>Votre compte a été créé avec succès !</p>
-                </div> 
-                END;
+                header('Location: index.php?action=accueil');
+                exit();
             } catch (AuthException $e) {
                 $html = <<<END
                 <div>
