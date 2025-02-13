@@ -2,14 +2,23 @@
 
 namespace iutnc\PiloteAndCo\actions;
 
-class Accueil extends Actions
+use iutnc\PiloteAndCo\models\Produit as Produit;
+use iutnc\PiloteAndCo\render\ProduitRenderer as ProduitRenderer;
+
+class Accueil extends Action
 {
     public function execute(): string
     {
-        return "
-            <div>
-                <h1>Bienvenue sur Pilote & Co</h1>
-            </div>
-        ";
+        $html = "";
+
+        // Render des produits de la base de données
+        $produits = Produit::getProducts();
+        foreach ($produits as $produit) {
+            $pr = new ProduitRenderer($produit);
+
+            $html .= $pr->render();
+        }
+
+        return $html;
     }
 }
