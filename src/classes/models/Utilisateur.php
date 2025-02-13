@@ -17,7 +17,7 @@ class Utilisateur
     private string $ville;
     private bool $isadmin;
 
-    public function __construct(int $id, string $nom, string $prenom, string $mail, string $password, string $date_naiss, string $adresse, string $code_postal, string $ville, bool $isadmin){
+    public function __construct(int $id, string $nom, string $prenom, string $mail, string $password, string $date_naiss, string $adresse, string $code_postal, string $ville, bool $isadmin = false){
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;

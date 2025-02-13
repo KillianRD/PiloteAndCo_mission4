@@ -3,8 +3,10 @@
     namespace iutnc\PiloteAndCo\dispatch;
 
     use iutnc\PiloteAndCo\actions\Accueil;
+    use iutnc\PiloteAndCo\actions\LoginAction;
+    use iutnc\PiloteAndCo\actions\RegisterAction;
 
-class Dispatcher
+    class Dispatcher
 {
         private ?string $action;
 
@@ -18,12 +20,17 @@ class Dispatcher
 
         switch ($this->action) {
             case "home" :
+            case "login" :
+                $a = new LoginAction();
+                break;
+            case "register" :
+                $a = new RegisterAction();
+                break;
             default :
                 $a = new Accueil();
-                $html .= $a->execute();
                 break;
             }
-
+            $html .= $a->execute();
             $this->renderPage($html);
         }
 
