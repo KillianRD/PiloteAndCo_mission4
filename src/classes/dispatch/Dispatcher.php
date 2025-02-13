@@ -5,6 +5,7 @@ namespace iutnc\PiloteAndCo\dispatch;
 use iutnc\PiloteAndCo\actions\Accueil;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 use iutnc\PiloteAndCo\actions\LoginAction;
+use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
 
 class Dispatcher
@@ -44,6 +45,9 @@ class Dispatcher
             case "register" :
                 $a = new RegisterAction();
                 break;
+            case "produit" :
+                $a = ProduitDetails();
+                break;
             default :
                 $a = new Accueil();
                 break;
@@ -76,6 +80,13 @@ class Dispatcher
                                 <img src="./images/logo.png" alt="logo" style="height: 20em;">
                             </a>
                         </div>
+                        <div class="dropdown">
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div>
+                        </div>
                         <!-- Thèmes des produits au centre -->
                         <div class="d-flex justify-content-center flex-grow-1">
                             <a href="index.php?action=electromenager" class="navlink mx-4">Electroménager</a>
@@ -102,7 +113,7 @@ class Dispatcher
                     </div>
                 </header>
             $html
-            <script src="./js/bootstrap.js" crossorigin="anonymous"></script>
+            <script src="./js/bootstrap.bundle.js" crossorigin="anonymous"></script>
             </body>
         </html>
         END;
