@@ -17,7 +17,7 @@ class ProduitRenderer implements Renderer
     {
         $html = <<<END
                     <div class="card text-center mx-2" style="width: 18rem;">
-                        <img src="../../../images/IMG_4989.JPG" class="card-img-top img-fluid" alt="{$this->produit->description}" style="height: 200px; object-fit: cover;">
+                        <img src="./images/IMG_4989.JPG" class="card-img-top img-fluid" alt="{$this->produit->description}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">{$this->produit->nom}</h5>
                             <p class="card-text fw-bold">{$this->produit->prix} €</p>
