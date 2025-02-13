@@ -101,7 +101,6 @@ END;
                             $dest = $RepertoireUpload . $nomFichier . '.jpg';
                         }
                         if (move_uploaded_file($tmp, $dest)) {
-
                             $db = ConnectionFactory::makeConnection();
                             $insert = $db->prepare("UPDATE produit SET nom = ?, description = ?, prix = ?, poids = ?, qte_dispo = ?, id_categorie = ?, img = ? WHERE id_produit = ?");
                             $insert->bindParam(1, $_POST['nom']);
@@ -116,19 +115,15 @@ END;
 
                             header('Location: index.php?action=admin-gestion');
                             exit();
-
                         } else {
                             header('Location: index.php?action=admin-gestion');
-                            exit();
-                        }
+                            exit();                        }
                     } else {
                         header('Location: index.php?action=admin-gestion');
-                        exit();
-                    }
+                        exit();                    }
                 } else {
                     header('Location: index.php?action=admin-gestion');
-                    exit();
-                }
+                    exit();                }
             } else {
                 $db = ConnectionFactory::makeConnection();
                 $insert = $db->prepare("UPDATE produit SET nom = ?, description = ?, prix = ?, poids = ?, qte_dispo = ?, id_categorie = ? WHERE id_produit = ?");
@@ -139,9 +134,9 @@ END;
                 $insert->bindParam(5, $_POST['qte']);
                 $insert->bindParam(6, $_POST['id_categorie']);
                 $insert->bindParam(7, $_POST['id']);
+                $insert->execute();
                 header('Location: index.php?action=admin-gestion');
-                exit();
-            }
+                exit();            }
 
         }
 
