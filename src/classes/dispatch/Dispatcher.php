@@ -8,6 +8,7 @@ use iutnc\PiloteAndCo\actions\Logout;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 use iutnc\PiloteAndCo\actions\ParcourirPanier;
 use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\Infos;
 
 
 class Dispatcher
@@ -47,6 +48,9 @@ class Dispatcher
                 break;
             case "Panier":
                 $a = new ParcourirPanier();
+                break;
+            case "infos":
+                $a = new Infos();
                 break;
             case "home" :
             default :
