@@ -10,34 +10,56 @@ class Accueil extends Action
     public function execute(): string
     {
         $produitHtml = "";
-        //Render des produits de la base de données
-        $produits = Produit::getProducts();
+
+        $produits = Produit::get5Products();
         foreach ($produits as $produit) {
             $pr = new ProduitRenderer($produit);
 
             $produitHtml .= $pr->render();
+
         }
 
         $html = "
-        <div>
-            <h1 class='mx-auto text-center'>Votre vision, notre mission</h1>
-            <div class='container text-center my-4'>
-              <h2>Les nouveautés</h2>
-              <div id='carouselExampleControls' class='carousel slide' data-ride='carousel'>
-                <div class='carousel-inner'>
-                  $produitHtml
+                <div class='py-5'>
+                    <h1 class='my-5 text-center'>Les nouveautés</h1>
+                    <div class='container text-center my-4'>
+                        <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
+                               $produitHtml
+                        </div>
+                    </div>
                 </div>
-                <a class='carousel-control-prev' href='#carouselExampleControls' role='button' data-slide='prev'>
-                  <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-                  <span class='sr-only'>Previous</span>
-                </a>
-                <a class='carousel-control-next' href='#carouselExampleControls' role='button' data-slide='next'>
-                  <span class='carousel-control-next-icon' aria-hidden='true'></span>
-                  <span class='sr-only'>Next</span>
-                </a>
-              </div>
-            </div>
-        </div>
+                                <div class='py-5'>
+                    <h1 class='my-5 text-center'>Electroménager reconditionné</h1>
+                    <div class='container text-center my-4'>
+                        <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
+                               $produitHtml
+                        </div>
+                    </div>
+                </div>
+                                <div class='py-5'>
+                    <h1 class='my-5 text-center'>Matériel de bricolage et jardinage rénové</h1>
+                    <div class='container text-center my-4'>
+                        <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
+                               $produitHtml
+                        </div>
+                    </div>
+                </div>
+                                <div class='py-5'>
+                    <h1 class='my-5 text-center'>Mobilier transformé upcyclé</h1>
+                    <div class='container text-center my-4'>
+                        <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
+                               $produitHtml
+                        </div>
+                    </div>
+                </div>
+                                                <div class='py-5'>
+                    <h1 class='my-5 text-center'>Produits de literie écologiques</h1>
+                    <div class='container text-center my-4'>
+                        <div class='mx-auto d-flex flex-row justify-content-center' style='width: 100%'>
+                               $produitHtml
+                        </div>
+                    </div>
+                </div>
         ";
 
 
