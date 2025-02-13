@@ -10,7 +10,7 @@ use iutnc\PiloteAndCo\actions\ParcourirPanier;
 use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
 use iutnc\PiloteAndCo\actions\Infos;
-
+use iutnc\PiloteAndCo\actions\AjouterPanier;
 
 class Dispatcher
 {
@@ -47,7 +47,9 @@ class Dispatcher
             case "logout" :
                 $a = new Logout();
                 break;
-
+            case "ajouter_panier":
+                $a = new AjouterPanier();
+                break;
             case "produit" :
                 $produitId = $_GET['id'] ?? null;
                 if ($produitId) {
