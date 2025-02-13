@@ -125,7 +125,7 @@ class Dispatcher
                         </a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn green-btn-color dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 Mon profil
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">

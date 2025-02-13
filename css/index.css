@@ -86,3 +86,17 @@ a.navlink:hover {
 .carousel-item img {
     width: 100%; /* S'assure que l'image occupe toute la largeur de l'élément */
 }
+
+
+.dropdown-menu {
+    background-color: #2B666F !important;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #DCDB76 !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #3a7c81 !important;
+    color: #ffffff !important;
+}

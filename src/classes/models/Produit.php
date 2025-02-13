@@ -74,10 +74,16 @@ class Produit
         return $produits;
     }
 
-    public static function get5Products(): array
+    public static function get5Products($cate): array
     {
         $db = ConnectionFactory::makeConnection();
-        $requete = $db->prepare("SELECT * FROM produit LIMIT 5");
+
+        if($cate > 0){
+            $requete = $db->prepare("SELECT * FROM produit WHERE id_categorie = $cate LIMIT 5");
+        } else {
+            $requete = $db->prepare("SELECT * FROM produit LIMIT 5");
+        }
+
         $requete->execute();
 
         $produits = [];
