@@ -3,6 +3,8 @@
 namespace iutnc\PiloteAndCo\dispatch;
 
 use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\admin\AddProduit;
+use iutnc\PiloteAndCo\actions\admin\GestionCatalogue;
 use iutnc\PiloteAndCo\actions\LoginAction;
 use iutnc\PiloteAndCo\actions\Logout;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
@@ -21,7 +23,10 @@ class Dispatcher
     public function run(): void
     {
         $html = "";
-
+        $user = null;
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+        }
         switch ($this->action) {
             case "electromenager":
                 $a = new ParcourirCategorie("electromenager");
@@ -47,6 +52,20 @@ class Dispatcher
             case "Panier":
                 $a = new ParcourirPanier();
                 break;
+            case "admin-gestion":
+                if($user!=null && $user->isadmin){
+                    $a = new GestionCatalogue();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
+            case "admin-add-article":
+                if($user!=null && $user->isadmin){
+                    $a = new AddProduit();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
             case "home" :
             default :
                 $a = new Accueil();
@@ -59,6 +78,8 @@ class Dispatcher
     private function afficherLoginOrProfil(): string
     {
         if (isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>': "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=Panier" class="navlink">🧺</a>
@@ -69,6 +90,7 @@ class Dispatcher
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="?action=infos">Mes informations</a></li>
+                                {$htmlAdmin}
                                 <li><a class="dropdown-item" href="?action=logout">Se déconnecter</a></li>
                             </ul>
                         </div>
