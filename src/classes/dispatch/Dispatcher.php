@@ -4,6 +4,7 @@ namespace iutnc\PiloteAndCo\dispatch;
 
 use iutnc\PiloteAndCo\actions\Accueil;
 use iutnc\PiloteAndCo\actions\admin\AddProduit;
+use iutnc\PiloteAndCo\actions\admin\EditProduit;
 use iutnc\PiloteAndCo\actions\admin\GestionCatalogue;
 use iutnc\PiloteAndCo\actions\AjouterPanier;
 use iutnc\PiloteAndCo\actions\Infos;
@@ -97,6 +98,13 @@ class Dispatcher
                     $a = new Accueil();
                 }
                 break;
+            case "admin-edit-article":
+                if($user!=null && $user->isadmin){
+                    $a = new EditProduit();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
             case "infos":
                 if ($user) {
                     $a = new Infos();
@@ -117,7 +125,7 @@ class Dispatcher
     {
         if (isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
-            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=panier" class="navlink">
