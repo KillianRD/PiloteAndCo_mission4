@@ -1,20 +1,21 @@
 <?php
 
-    namespace iutnc\PiloteAndCo\dispatch;
+namespace iutnc\PiloteAndCo\dispatch;
 
-    use iutnc\PiloteAndCo\actions\Accueil;
-    use iutnc\PiloteAndCo\actions\ParcourirCategorie;
-    use iutnc\PiloteAndCo\actions\LoginAction;
-    use iutnc\PiloteAndCo\actions\RegisterAction;
+use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\ParcourirCategorie;
+use iutnc\PiloteAndCo\actions\LoginAction;
+use iutnc\PiloteAndCo\actions\RegisterAction;
 
-    class Dispatcher
+class Dispatcher
 {
-        private ?string $action;
+    private ?string $action;
 
-        public function __construct()
-        {
-            $this->action = $_GET['action'] ?? null;
-        }
+    public function __construct()
+    {
+        $this->action = $_GET['action'] ?? null;
+    }
+
     public function run(): void
     {
         $html = "";
@@ -46,14 +47,14 @@
             default :
                 $a = new Accueil();
                 break;
-            }
-            $html .= $a->execute();
-            $this->renderPage($html);
         }
+        $html .= $a->execute();
+        $this->renderPage($html);
+    }
 
-        private function renderPage(string $html): void
-        {
-            echo <<<END
+    private function renderPage(string $html): void
+    {
+        echo <<<END
             <!DOCTYPE html>
             <html lang="en">
             <head>
