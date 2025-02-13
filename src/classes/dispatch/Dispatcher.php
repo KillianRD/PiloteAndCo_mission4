@@ -3,14 +3,18 @@
 namespace iutnc\PiloteAndCo\dispatch;
 
 use iutnc\PiloteAndCo\actions\Accueil;
+use iutnc\PiloteAndCo\actions\admin\AddProduit;
+use iutnc\PiloteAndCo\actions\admin\GestionCatalogue;
+use iutnc\PiloteAndCo\actions\AjouterPanier;
+use iutnc\PiloteAndCo\actions\Infos;
 use iutnc\PiloteAndCo\actions\LoginAction;
 use iutnc\PiloteAndCo\actions\Logout;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
 use iutnc\PiloteAndCo\actions\ParcourirPanier;
 use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
-use iutnc\PiloteAndCo\actions\Infos;
-use iutnc\PiloteAndCo\actions\AjouterPanier;
+use iutnc\PiloteAndCo\actions\ValiderPanier;
+
 
 class Dispatcher
 {
@@ -24,7 +28,10 @@ class Dispatcher
     public function run(): void
     {
         $html = "";
-
+        $user = null;
+        if (isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+        }
         switch ($this->action) {
             case "electromenager":
                 $a = new ParcourirCategorie("electromenager");
@@ -45,10 +52,18 @@ class Dispatcher
                 $a = new RegisterAction();
                 break;
             case "logout" :
-                $a = new Logout();
+                if ($user) {
+                    $a = new Logout();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "ajouter_panier":
-                $a = new AjouterPanier();
+                if ($user) {
+                    $a = new AjouterPanier();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "produit" :
                 $produitId = $_GET['id'] ?? null;
@@ -59,10 +74,35 @@ class Dispatcher
                 }
                 break;
             case "panier":
-                $a = new ParcourirPanier();
+                if ($user) {
+                    $a = new ParcourirPanier();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
+            case "checkout":
+                $a = new ValiderPanier();
+                break;
+            case "admin-gestion":
+                if ($user != null && $user->isadmin) {
+                    $a = new GestionCatalogue();
+                } else {
+                    $a = new Accueil();
+                }
+                break;
+            case "admin-add-article":
+                if ($user != null && $user->isadmin) {
+                    $a = new AddProduit();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "infos":
-                $a = new Infos();
+                if ($user) {
+                    $a = new Infos();
+                } else {
+                    $a = new Accueil();
+                }
                 break;
             case "home" :
             default :
@@ -76,6 +116,8 @@ class Dispatcher
     private function afficherLoginOrProfil(): string
     {
         if (isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            $htmlAdmin = $user->isadmin ? '<li><a class="dropdown-item" href="?action=admin">Admin - Liste des commandes</a></li><li><a class="dropdown-item" href="?action=admin-gestion">Admin - Gestion du catalogue</a></li>' : "";
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
                         <a href="?action=panier" class="navlink">
@@ -88,6 +130,7 @@ class Dispatcher
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="?action=infos">Mes informations</a></li>
+                                {$htmlAdmin}
                                 <li><a class="dropdown-item" href="?action=logout">Se déconnecter</a></li>
                             </ul>
                         </div>
@@ -116,6 +159,7 @@ class Dispatcher
                 <title>Réstore</title>
 
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <link rel='shortcut icon' href='./images/logo_mini.png' type='image/x-icon'>
                 <link href="./css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,7 +182,7 @@ class Dispatcher
                             <a href="index.php?action=electromenager" class="navlink mx-4">Electroménager</a>
                             <a href="index.php?action=jardinage" class="navlink mx-4">Jardinage & bricolage</a>
                             <a href="index.php?action=literie" class="navlink mx-4">Literie</a>
-                            <a href="index.php?action=jsp" class="navlink mx-4">Mobilier</a>
+                            <a href="index.php?action=mobilier" class="navlink mx-4">Mobilier</a>
                         </div>
                         <!-- Connexion/inscription ou utilisateur connecté à droite -->
                         <div>                            

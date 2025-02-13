@@ -36,6 +36,17 @@ class Panier
         }
     }
 
+    public static function validerPanier(int $id_user): string
+    {
+        $produits = Panier::getPanierByIdUser($id_user);
+        $total = 0;
+        foreach ($produits as $produit) {
+            $total += Produit::getProductById($produit->id_produit)->prix * $produit->quantite;
+        }
+
+        return $total;
+    }
+
     public static function getPanierByIdUser(int $id_user): array
     {
         $db = ConnectionFactory::makeConnection();
@@ -50,7 +61,9 @@ class Panier
 
         return $panier;
     }
-    public static function ajouterPanier(int $id_user, int $id_produit, int $quantite){
+
+    public static function ajouterPanier(int $id_user, int $id_produit, int $quantite)
+    {
         $db = ConnectionFactory::makeConnection();
         $requete = $db->prepare("SELECT * FROM panier WHERE id_utilisateur = ? AND id_produit = ?");
         $requete->bindParam(1, $id_user);
@@ -81,6 +94,6 @@ class Panier
             $insert->bindParam(3, $quantite);
             $insert->execute();
         }
-        
+
     }
 }
