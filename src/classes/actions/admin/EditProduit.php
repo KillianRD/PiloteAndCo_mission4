@@ -126,7 +126,6 @@ END;
                     $html = "Échec du téléchargement, contacter un support !<br>";
                 }
             } else {
-                var_dump($_POST);
                 $db = ConnectionFactory::makeConnection();
                 $insert = $db->prepare("UPDATE produit SET nom = ?, description = ?, prix = ?, poids = ?, qte_dispo = ?, id_categorie = ? WHERE id_produit = ?");
                 $insert->bindParam(1, $_POST['nom']);
@@ -136,7 +135,6 @@ END;
                 $insert->bindParam(5, $_POST['qte']);
                 $insert->bindParam(6, $_POST['id_categorie']);
                 $insert->bindParam(7, $_POST['id']);
-                var_dump($insert->execute());
                 $html = "<h1>L'article a été mis à jour avec succès</h1>";
             }
 

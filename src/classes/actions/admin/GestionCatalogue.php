@@ -59,7 +59,7 @@ class GestionCatalogue extends Action
                             <td>{$row['qte_dispo']}</td>
                             <td>{$row['categorie_nom']}</td>
                             <td>
-                                <a href="?action=edit-article&id={$row['id_produit']}" class="btn btn-warning btn-sm">
+                                <a href="?action=admin-edit-article&id={$row['id_produit']}" class="btn btn-warning btn-sm">
                                     <i class="fa-solid fa-pen-to-square"></i> Modifier
                                 </a>
                             </td>
