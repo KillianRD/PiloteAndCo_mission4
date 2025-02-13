@@ -6,6 +6,8 @@ use iutnc\PiloteAndCo\actions\Accueil;
 use iutnc\PiloteAndCo\actions\LoginAction;
 use iutnc\PiloteAndCo\actions\Logout;
 use iutnc\PiloteAndCo\actions\ParcourirCategorie;
+use iutnc\PiloteAndCo\actions\ParcourirPanier;
+use iutnc\PiloteAndCo\actions\ProduitDetails;
 use iutnc\PiloteAndCo\actions\RegisterAction;
 use iutnc\PiloteAndCo\actions\Infos;
 
@@ -45,7 +47,16 @@ class Dispatcher
             case "logout" :
                 $a = new Logout();
                 break;
-            case "Panier":
+
+            case "produit" :
+                $produitId = $_GET['id'] ?? null;
+                if ($produitId) {
+                    $a = new ProduitDetails($produitId);
+                } else {
+                    $html .= "Produit introuvable.";
+                }
+                break;
+            case "panier":
                 $a = new ParcourirPanier();
                 break;
             case "infos":
@@ -65,7 +76,9 @@ class Dispatcher
         if (isset($_SESSION['user'])) {
             return <<<END
                     </div class="d-flex justify-content-end align-items-center justify-content-lg-end">
-                        <a href="?action=Panier" class="navlink">🧺</a>
+                        <a href="?action=panier" class="navlink">
+                            <i class="fa-solid fa-cart-shopping" style="color: #dcdb76;"></i>
+                        </a>
                         <p class="mx-2 mt-0 mb-0">/</p>
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,12 +113,14 @@ class Dispatcher
                 <meta charset="UTF-8">
                 <title>Réstore</title>
 
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
                 <link href="./css/bootstrap_css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
                 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
                 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="./css/index.css">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
             </head>
             <body>
                 <header style="height: 120px;">
@@ -113,7 +128,7 @@ class Dispatcher
                         <!-- Logo à gauche -->
                         <div>
                             <a href="index.php">
-                                <img src="./images/logo.png" alt="logo" style="height: 20em;">
+                                <i class="fa-solid fa-house fa-2xl mx-5" style="color: #dcdb76;"></i>
                             </a>
                         </div>
                         <!-- Thèmes des produits au centre -->
@@ -132,8 +147,6 @@ class Dispatcher
                 </header>
             $html
                 <script src="./js/bootstrap.bundle.js" crossorigin="anonymous"></script>
-
-
             </body>
         </html>
         END;
