@@ -2,6 +2,8 @@
 
 namespace iutnc\PiloteAndCo\dispatch;
 
+use iutnc\PiloteAndCo\actions\Accueil;
+
 class Dispatcher
 {
 
@@ -17,7 +19,11 @@ class Dispatcher
         $html = "";
 
         switch ($this->action) {
-
+            case "home" :
+            default :
+                $a = new Accueil();
+                $html .= $a->execute();
+                break;
         }
 
         $this->renderPage($html);
