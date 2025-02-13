@@ -49,7 +49,7 @@ class Produit
     public static function getProducts(): array
     {
         $db = ConnectionFactory::makeConnection();
-        $requete = $db->prepare("SELECT * FROM PRODUIT");
+        $requete = $db->prepare("SELECT * FROM produit");
         $requete->execute();
 
         $produits = [];
@@ -65,7 +65,7 @@ class Produit
     public static function getProductsByCategory(int $id): array
     {
         $db = ConnectionFactory::makeConnection();
-        $requete = $db->prepare("SELECT * FROM PRODUIT WHERE id_categorie = ?");
+        $requete = $db->prepare("SELECT * FROM produit WHERE id_categorie = ?");
         $requete->bindParam(1, $id);
         $requete->execute();
 
