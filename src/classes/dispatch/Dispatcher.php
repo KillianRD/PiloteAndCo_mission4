@@ -23,19 +23,15 @@ class Dispatcher
         switch ($this->action) {
             case "electromenager":
                 $a = new ParcourirCategorie("electromenager");
-                $html .= $a->execute();
                 break;
             case "jardinage":
                 $a = new ParcourirCategorie("jardinage");
-                $html .= $a->execute();
                 break;
             case "literie":
                 $a = new ParcourirCategorie("literie");
-                $html .= $a->execute();
                 break;
             case "mobilier":
                 $a = new ParcourirCategorie("mobilier");
-                $html .= $a->execute();
                 break;
             case "home" :
             case "login" :
